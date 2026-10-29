@@ -1,0 +1,15 @@
+// Configurazione del Worker Cloudflare.
+// Il sito è un progetto Vite/React: prima del deploy wrangler esegue la build
+// (npm run build) e pubblica la cartella ./dist.
+// "name" deve essere IDENTICO al nome del Worker creato su Cloudflare.
+{
+  "name": "backupstreghe",
+  "compatibility_date": "2026-10-29",
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

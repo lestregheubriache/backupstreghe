@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://lestregheubriache.org/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it-IT" href="https://lestregheubriache.org/" />
+    <image:image>
+      <image:loc>https://lestregheubriache.org/og-cover.jpg</image:loc>
+      <image:title>Le Streghe Ubriache — Cantina del 1750, Frascati</image:title>
+      <image:caption>Ristorante e cocktail bar in una cantina del 1750 a Frascati.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://lestregheubriache.org/storia</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it-IT" href="https://lestregheubriache.org/storia" />
+  </url>
+
+  <url>
+    <loc>https://lestregheubriache.org/menu</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it-IT" href="https://lestregheubriache.org/menu" />
+  </url>
+
+  <url>
+    <loc>https://lestregheubriache.org/esperienze</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it-IT" href="https://lestregheubriache.org/esperienze" />
+  </url>
+
+  <url>
+    <loc>https://lestregheubriache.org/contatti</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it-IT" href="https://lestregheubriache.org/contatti" />
+  </url>
+
+</urlset>
