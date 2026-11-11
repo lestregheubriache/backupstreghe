@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
-import posterImg from '../../imports/halloween-2026.webp';
+import posterImg from '../../imports/cena-castelli-locandina.webp';
+import menuImg from '../../imports/cena-castelli-menu.webp';
 
 /*
- * Popup "Halloween Party" — sabato 31 ottobre 2026.
- * Si mostra all'apertura della home, una volta per sessione,
- * e sparisce da solo dal 1° novembre 2026 (ora italiana).
+ * Popup "Cena ai Castelli… a suon di stornelli" — giovedì 19 novembre 2026.
+ * Si mostra all'apertura della home e della pagina menu, una volta per sessione.
+ * Mostra la locandina; il menù della serata si apre solo col pulsante "Scopri il menù".
+ * Sparisce da solo dal 20 novembre 2026 (ora italiana).
  */
 
-const END = new Date('2026-11-01T00:00:00+01:00');
-const SEEN_KEY = 'su-halloween-2026';
+const END = new Date('2026-11-20T00:00:00+01:00');
+const SEEN_KEY = 'su-cena-castelli-2026';
 const WA_LINK =
   'https://wa.me/39069421645?text=' +
-  encodeURIComponent('Ciao! Vorrei prenotare per l\'Halloween Party di sabato 31 ottobre. Siamo in … persone.');
+  encodeURIComponent('Ciao! Vorrei prenotare per la Cena ai Castelli… a suon di stornelli di giovedì 19 novembre. Siamo in … persone.');
 
 function alreadySeen() {
   try { return sessionStorage.getItem(SEEN_KEY) === '1'; } catch { return false; }
@@ -20,10 +22,12 @@ function markSeen() {
   try { sessionStorage.setItem(SEEN_KEY, '1'); } catch { /* ignore */ }
 }
 
-export default function HalloweenPopup() {
+export default function CenaCastelliPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (new Date() >= END || alreadySeen()) return;
@@ -50,17 +54,24 @@ export default function HalloweenPopup() {
 
   function close() {
     setVisible(false);
-    setTimeout(() => setOpen(false), 350);
+    setTimeout(() => { setOpen(false); setShowMenu(false); }, 350);
+  }
+
+  function toggleMenu() {
+    setShowMenu((v) => !v);
+    boxRef.current?.scrollTo({ top: 0 });
   }
 
   if (!open) return null;
+
+  const img = showMenu ? menuImg : posterImg;
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-labelledby="halloween-title"
-      className="fixed inset-0 z-[10000] flex items-center justify-center p-[28px] sm:p-[40px]"
+      aria-labelledby="cena-castelli-title"
+      className="fixed inset-0 z-[10000] flex items-center justify-center p-[20px] sm:p-[40px]"
       style={{
         background: 'rgba(10,8,6,0.82)',
         backdropFilter: 'blur(6px)',
@@ -71,7 +82,8 @@ export default function HalloweenPopup() {
       onClick={close}
     >
       <div
-        className="relative w-full max-w-[740px] max-h-full overflow-y-auto overscroll-contain rounded-[6px] border border-[var(--rule-strong)] grid md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]"
+        ref={boxRef}
+        className="relative w-full max-w-[760px] max-h-full overflow-y-auto overscroll-contain rounded-[6px] border border-[var(--rule-strong)] grid md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]"
         style={{
           background: 'var(--ink)',
           boxShadow: '0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(224,118,61,.08), 0 0 60px rgba(224,118,61,.12)',
@@ -90,42 +102,57 @@ export default function HalloweenPopup() {
           ×
         </button>
 
-        {/* Locandina */}
+        {/* Locandina / Menù della serata */}
         <a
-          href={posterImg}
+          href={img}
           target="_blank"
           rel="noopener"
-          className="block bg-[var(--ink-2)] md:bg-transparent md:self-center md:rounded-l-[6px] overflow-hidden"
-          aria-label="Apri la locandina a tutto schermo"
+          className="block bg-[#f1ece4] md:self-center md:rounded-l-[6px] overflow-hidden"
+          aria-label={showMenu ? 'Apri il menù a tutto schermo' : 'Apri la locandina a tutto schermo'}
         >
           <img
-            src={posterImg}
-            alt="Locandina Halloween Party alle Streghe Ubriache: sabato 31 ottobre ore 20.30, cena e musica dal vivo con i Greenbus"
+            key={showMenu ? 'menu' : 'poster'}
+            src={img}
+            alt={
+              showMenu
+                ? 'Menù della Cena ai Castelli, 35 euro bevande incluse: porchetta e pecorini, bruschetta con puntarelle e crema di pecorino, trippa alla romana, fagioli con le cotiche; gnocchi alla amatriciana o paccheri al sugo di coda alla vaccinara; polpette in bocca o involtini alla romana; ciambelline al vino bianco; acqua e vino'
+                : 'Locandina Cena ai Castelli… a suon di stornelli: giovedì 19 novembre ore 20.30, musica dal vivo con i Girodidò e menù romano a 35 euro bevande incluse'
+            }
             width={1000}
-            height={1410}
-            className="w-full h-auto max-h-[36svh] md:max-h-[70svh] object-contain mx-auto"
+            height={1414}
+            className={
+              'w-full h-auto object-contain mx-auto ' +
+              (showMenu ? 'max-h-[62svh] md:max-h-[74svh]' : 'max-h-[38svh] md:max-h-[70svh]')
+            }
+            style={{ animation: 'cenaFade 300ms ease' }}
           />
         </a>
 
         {/* Info */}
         <div className="flex flex-col justify-center px-[22px] py-[20px] sm:px-[30px] sm:py-[30px]">
           <span className="font-[var(--mono)] text-[11px] tracking-[0.32em] uppercase text-[var(--ember)]">
-            Evento speciale
+            Evento speciale · con i Girodidò
           </span>
           <h2
-            id="halloween-title"
-            className="font-[var(--serif)] text-[clamp(26px,4vw,38px)] mt-[8px] md:mt-[12px] leading-[1.05]"
+            id="cena-castelli-title"
+            className="font-[var(--serif)] text-[clamp(24px,3.6vw,34px)] mt-[8px] md:mt-[12px] leading-[1.08]"
           >
-            Halloween<br className="max-md:hidden" /> Party.
+            Cena ai Castelli… a suon di stornelli.
           </h2>
 
-          <ul className="mt-[14px] md:mt-[22px] flex flex-col gap-[6px] md:gap-[10px] text-[15px] md:text-[16px] leading-[1.5] text-[var(--cream-mute)]">
-            <li><strong className="text-[var(--cream)]">Sabato 31 ottobre</strong> · dalle 20.30</li>
-            <li>Cena + musica dal vivo con i <strong className="text-[var(--cream)]">Greenbus</strong> · blues &amp; rock</li>
-            <li className="max-md:hidden">Posti limitati, prenotazione consigliata</li>
+          <ul className={'mt-[12px] md:mt-[20px] flex flex-col gap-[6px] md:gap-[10px] text-[15px] md:text-[16px] leading-[1.5] text-[var(--cream-mute)]' + (showMenu ? ' max-md:hidden' : '')}>
+            <li><strong className="text-[var(--cream)]">Giovedì 19 novembre</strong> · ore 20.30</li>
+            <li>Musica dal vivo e menù romano · <strong className="text-[var(--cream)]">€ 35 bevande incluse</strong></li>
+            <li className="max-md:hidden">Gradita la prenotazione</li>
           </ul>
 
-          <div className="mt-[18px] md:mt-[28px] flex flex-col gap-[10px]">
+          <div className="mt-[16px] md:mt-[26px] flex flex-col gap-[10px]">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center rounded-full px-[22px] py-[13px] font-[var(--mono)] text-[12px] tracking-[0.2em] uppercase border border-[var(--ember)] text-[var(--ember)] hover:bg-[var(--ember)] hover:text-[var(--ink)] transition-colors"
+            >
+              {showMenu ? '← Torna alla locandina' : 'Scopri il menù'}
+            </button>
             <a
               href={WA_LINK}
               target="_blank"
@@ -150,6 +177,7 @@ export default function HalloweenPopup() {
           </div>
         </div>
       </div>
+      <style>{'@keyframes cenaFade{from{opacity:0}to{opacity:1}}'}</style>
     </div>
   );
 }

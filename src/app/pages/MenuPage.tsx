@@ -9,7 +9,7 @@
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import HalloweenPopup from '../components/HalloweenPopup';
+import CenaCastelliPopup from '../components/CenaCastelliPopup';
 import whiskyPdf from '../../imports/whisky_.pdf';
 
 /* ─── Types ─────────────────────────────────────────────────── */
@@ -590,7 +590,7 @@ export default function MenuPage() {
 
   return (
     <div>
-      <HalloweenPopup />
+      <CenaCastelliPopup />
       <Navigation solid />
 
       {/* Page Hero */}

@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import PlaceholderImage from '../components/PlaceholderImage';
 import DishItem from '../components/DishItem';
 import Marquee from '../components/Marquee';
-import HalloweenPopup from '../components/HalloweenPopup';
+import CenaCastelliPopup from '../components/CenaCastelliPopup';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import pastaImg from '../../imports/IMG20260426145419.jpg';
 import porchettaImg from '../../imports/IMG-20250913-WA0000.jpg';
@@ -195,7 +195,7 @@ export default function HomePage() {
   return (
     <div>
       <ClosurePopup />
-      <HalloweenPopup />
+      <CenaCastelliPopup />
       <Navigation />
 
       {/* Hero */}

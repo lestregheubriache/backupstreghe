@@ -2,6 +2,12 @@
 
 Progetto Vite/React (export Figma Make). Cloudflare: `wrangler.jsonc` esegue `npm run build` e pubblica `./dist`.
 
+## Cena ai Castelli — 2026-11-11
+- Nuovo popup "Cena ai Castelli… a suon di stornelli" (giovedì 19 novembre, ore 20.30, con i Girodidò, € 35 bevande incluse) su home e /menu
+- Mostra la locandina; il menù della serata si apre solo col pulsante "Scopri il menù" dentro il popup
+- Una volta per visita; si disattiva da solo dal 20 novembre 2026
+- Rimosso il popup di Halloween (evento passato)
+
 ## Popup anche sul menu — 2026-10-29
 - Il popup Halloween si apre anche sulla pagina /menu (es. QR code ai tavoli), sempre una volta per visita
 
